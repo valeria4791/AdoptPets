@@ -17,7 +17,7 @@ public class Pet implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int petId;
 
-	// many to one relationship - TO pet owner table
+	// many to one relationship - To pet owner table
 	@ManyToOne
 	private PetOwner petOwner;
 
