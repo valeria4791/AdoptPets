@@ -2,6 +2,9 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -9,7 +12,8 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@NamedQueries({
+		@NamedQuery(name = "FindUser", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password") })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,16 +26,16 @@ public class User implements Serializable {
 	private String lastName;
 	private String email;
 
+	// one to many relationship - To pet owner table
+	@OneToMany(mappedBy = "user")
+	private List<PetOwner> owners = new ArrayList<PetOwner>();
+
 	public User() {
 		super();
 	}
 
 	public int getUserId() {
 		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 
 	public String getUsername() {
@@ -72,5 +76,13 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<PetOwner> getOwners() {
+		return owners;
+	}
+
+	public void setOwners(List<PetOwner> owners) {
+		this.owners = owners;
 	}
 }

@@ -79,4 +79,23 @@ public class UserDAO {
 			AccessToDb.closeFactory();
 		}
 	}
+
+	// Get User by username and password
+	public User findUserByData(String username, String password) throws ErrorInProcessUser {
+
+		try {
+			// access to DB
+			EntityManager em = AccessToDb.createFactory();
+
+			// Select User by username and password
+			User selectedUser = em.createNamedQuery("FindUser", User.class).setParameter("username", username)
+					.setParameter("password", password).getSingleResult();
+			
+			return selectedUser;
+		} catch (Exception e) {
+			throw new ErrorInProcessUser("Error in process user data");
+		} finally {
+			AccessToDb.closeFactory();
+		}
+	}
 }

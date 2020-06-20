@@ -17,8 +17,8 @@ public class Pet implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int petId;
 
-	// many to one relationship - To pet owner table
-	@ManyToOne
+	// one to one relationship - To pet owner table
+	@OneToOne
 	private PetOwner petOwner;
 
 	private String category;
@@ -35,10 +35,6 @@ public class Pet implements Serializable {
 
 	public int getPetId() {
 		return this.petId;
-	}
-
-	public void setPetId(int petId) {
-		this.petId = petId;
 	}
 
 	public PetOwner getPetOwner() {

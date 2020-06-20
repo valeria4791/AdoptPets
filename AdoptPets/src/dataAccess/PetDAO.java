@@ -1,5 +1,7 @@
 package dataAccess;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import entities.Pet;
@@ -63,7 +65,7 @@ public class PetDAO {
 		}
 	}
 
-	// Get pet 
+	// Get pet
 	public Pet getPet(int idPPet) throws ErrorInProcessPetData {
 		try {
 			// access to DB
@@ -73,6 +75,23 @@ public class PetDAO {
 
 			// Close
 			return pet;
+		} catch (Exception e) {
+			throw new ErrorInProcessPetData("Error in process pet data");
+		} finally {
+			AccessToDb.closeFactory();
+		}
+	}
+
+	// Get all pets in DB
+	public List<Pet> getAllPets() throws ErrorInProcessPetData {
+
+		try {
+			// access to DB
+			EntityManager em = AccessToDb.createFactory();
+
+			List<Pet> results = em.createNamedQuery("AllPets", Pet.class).getResultList();
+
+			return results;
 		} catch (Exception e) {
 			throw new ErrorInProcessPetData("Error in process pet data");
 		} finally {
