@@ -9,6 +9,7 @@ import exception.ErrorInProcessPetData;
 import exception.ErrorInProcessPetOwner;
 import exception.ErrorInProcessUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dataAccess.PetDAO;
@@ -31,7 +32,7 @@ public class PetModel {
 			String shortDescription, String detailDescription, int ownerPhoneNumber, String ownerCity,
 			String ownerStreet, int ownerHouseNumber)
 			throws ErrorInProcessPetOwner, ErrorInProcessUser, ErrorInProcessPetData {
-		
+
 		// Get user by user id
 		User user = this.userAccess.getUser(userId);
 
@@ -155,19 +156,49 @@ public class PetModel {
 	}
 
 	// Get all pets of user
-	public List<Pet> getAllPetsByUser(int userId) {
-		
-		// Get all pet owners that user create
-		
-		// Get from each pet owner a pet that connected to him
-		
-		return null;
+	public List<Pet> getAllPetsByUser(int userId) throws ErrorInProcessPetOwner, ErrorInProcessUser {
+
+		// Create list of pets of returning
+		List<Pet> pets = new ArrayList<Pet>();
+
+		try {
+
+			// Get all pet owners that user create
+			List<PetOwner> petOwners = this.userAccess.getAllPetOwners(userId);
+
+			// Get from each pet owner a pet that connected to him
+			for (PetOwner currPetOwner : petOwners) {
+
+				// Get pet of owner
+				Pet pet = this.petOwnerAccess.getPetByOwnerId(currPetOwner.getPetOwnerId());
+
+				// Add pet
+				pets.add(pet);
+			}
+
+			return pets;
+		} catch (ErrorInProcessPetOwner ePetOwner) {
+			throw ePetOwner;
+		} catch (ErrorInProcessUser ePet) {
+			throw ePet;
+		}
 	}
 
 	// Get all pets in DB
 	public List<Pet> getAllPets() throws ErrorInProcessPetData {
 		try {
 			return this.petAccess.getAllPets();
+		} catch (ErrorInProcessPetData ePet) {
+			throw ePet;
+		}
+	}
+
+	// Get pets by criteria
+	// TODO
+	public List<Pet> getPetsByCriteria(String petCategory, int petAge, int petSize, String petGender)
+			throws ErrorInProcessPetData {
+		try {
+			return this.petAccess.getPetsByCriteria(petCategory, petAge, petSize, petGender);
 		} catch (ErrorInProcessPetData ePet) {
 			throw ePet;
 		}

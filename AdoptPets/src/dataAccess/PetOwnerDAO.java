@@ -2,6 +2,7 @@ package dataAccess;
 
 import javax.persistence.EntityManager;
 
+import entities.Pet;
 import entities.PetOwner;
 import exception.ErrorInProcessPetOwner;
 import utilities.AccessToDb;
@@ -71,8 +72,24 @@ public class PetOwnerDAO {
 
 			PetOwner petOwner = em.find(PetOwner.class, idPetOwner);
 
-			// Close
 			return petOwner;
+		} catch (Exception e) {
+			throw new ErrorInProcessPetOwner("Error in process pet owner data");
+		} finally {
+			AccessToDb.closeFactory();
+		}
+	}
+
+	// Get pet of owner
+	public Pet getPetByOwnerId(int idPetOwner) throws ErrorInProcessPetOwner {
+		try {
+			// access to DB
+			EntityManager em = AccessToDb.createFactory();
+
+			Pet pet = em.createNamedQuery("PetOfOwner", Pet.class).setParameter("petOwnerId", idPetOwner)
+					.getSingleResult();
+
+			return pet;
 		} catch (Exception e) {
 			throw new ErrorInProcessPetOwner("Error in process pet owner data");
 		} finally {

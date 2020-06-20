@@ -1,8 +1,11 @@
 package dataAccess;
 
-import javax.persistence.EntityManager;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import entities.PetOwner;
 import entities.User;
+import exception.ErrorInProcessPetOwner;
 import exception.ErrorInProcessUser;
 import utilities.AccessToDb;
 
@@ -90,8 +93,26 @@ public class UserDAO {
 			// Select User by username and password
 			User selectedUser = em.createNamedQuery("FindUser", User.class).setParameter("username", username)
 					.setParameter("password", password).getSingleResult();
-			
+
 			return selectedUser;
+		} catch (Exception e) {
+			throw new ErrorInProcessUser("Error in process user data");
+		} finally {
+			AccessToDb.closeFactory();
+		}
+	}
+
+	// Get all pet owners of user
+	public List<PetOwner> getAllPetOwners(int idUser) throws ErrorInProcessUser {
+		try {
+			// access to DB
+			EntityManager em = AccessToDb.createFactory();
+
+			// Select Pet owners of user
+			List<PetOwner> results = em.createNamedQuery("OwnersByUser", PetOwner.class).setParameter("userId", idUser)
+					.getResultList();
+
+			return results;
 		} catch (Exception e) {
 			throw new ErrorInProcessUser("Error in process user data");
 		} finally {

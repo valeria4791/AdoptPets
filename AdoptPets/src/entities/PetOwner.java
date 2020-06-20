@@ -2,8 +2,6 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -12,7 +10,8 @@ import javax.persistence.*;
  *
  */
 @Entity
-
+@NamedQueries({
+		@NamedQuery(name = "PetOfOwner", query = "SELECT p FROM PetOwner o JOIN o.pet p WHERE o.petOwnerId = :petOwnerId") })
 public class PetOwner implements Serializable {
 	private static final long serialVersionUID = 1L;
 
