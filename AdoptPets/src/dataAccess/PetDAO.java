@@ -104,8 +104,7 @@ public class PetDAO {
 	}
 
 	// Get pets by criteria
-	// TODO
-	public List<Pet> getPetsByCriteria(String petCategory, int petAge, int petSize, String petGender)
+	public List<Pet> getPetsByCriteria(String petCategory, int petAge, String petSize, String petGender)
 			throws ErrorInProcessPetData {
 		try {
 			// access to DB
@@ -120,19 +119,19 @@ public class PetDAO {
 			List<Predicate> predicates = new ArrayList<>();
 
 			// Category
-			if (petCategory != null)
+			if (petCategory != null && !petCategory.isEmpty())
 				predicates.add(cb.and(cb.equal(pet.get("category"), petCategory)));
 
 			// Pet Age
-			if (petCategory != null)
+			if (petAge != 0)
 				predicates.add(cb.and(cb.equal(pet.get("petAge"), petAge)));
 
 			// Pet size
-			if (petCategory != null)
+			if (petSize != null && !petSize.isEmpty())
 				predicates.add(cb.and(cb.equal(pet.get("petSize"), petSize)));
 
 			// Pet Gender
-			if (petCategory != null)
+			if (petGender != null && !petGender.isEmpty())
 				predicates.add(cb.and(cb.equal(pet.get("gender"), petGender)));
 
 			// Set where

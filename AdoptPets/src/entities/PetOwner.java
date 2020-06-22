@@ -23,7 +23,7 @@ public class PetOwner implements Serializable {
 	@ManyToOne
 	private User user;
 
-	private int phoneNumber;
+	private long phoneNumber;
 	private String city;
 	private String street;
 	private int houseNumber;
@@ -44,11 +44,11 @@ public class PetOwner implements Serializable {
 		this.petOwnerId = petOwnerId;
 	}
 
-	public int getPhoneNumber() {
+	public long getPhoneNumber() {
 		return this.phoneNumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 

@@ -25,10 +25,12 @@ public class Pet implements Serializable {
 	private String category;
 	private String petName;
 	private int petAge;
-	private int petSize;
+	private String petSize;
 	private String gender;
 	private String shortDescription;
 	private String detailDescription;
+
+	// TODO picture
 
 	public Pet() {
 		super();
@@ -70,11 +72,11 @@ public class Pet implements Serializable {
 		this.petAge = petAge;
 	}
 
-	public int getPetSize() {
+	public String getPetSize() {
 		return this.petSize;
 	}
 
-	public void setPetSize(int petSize) {
+	public void setPetSize(String petSize) {
 		this.petSize = petSize;
 	}
 

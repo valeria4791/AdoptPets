@@ -21,15 +21,15 @@ public class PetModel {
 	// Access to pet owner table in DB
 	private PetOwnerDAO petOwnerAccess = new PetOwnerDAO();
 
-	// Access to User table in DB
+	// Access to Pet table in DB
 	private PetDAO petAccess = new PetDAO();
 
 	// Access to User table in DB
 	private UserDAO userAccess = new UserDAO();
 
 	// Create new pet with new owner
-	public Pet createNewPet(int userId, String petCategory, String petName, int petAge, int petSize, String petGender,
-			String shortDescription, String detailDescription, int ownerPhoneNumber, String ownerCity,
+	public Pet createNewPet(int userId, String petCategory, String petName, int petAge, String petSize, String petGender,
+			String shortDescription, String detailDescription,long ownerPhoneNumber, String ownerCity,
 			String ownerStreet, int ownerHouseNumber)
 			throws ErrorInProcessPetOwner, ErrorInProcessUser, ErrorInProcessPetData {
 
@@ -79,8 +79,8 @@ public class PetModel {
 	}
 
 	// Update exist pet and owner
-	public Pet updatePet(int petId, String petCategory, String petName, int petAge, int petSize, String petGender,
-			String shortDescription, String detailDescription, int ownerPhoneNumber, String ownerCity,
+	public Pet updatePet(int petId, String petCategory, String petName, int petAge, String petSize, String petGender,
+			String shortDescription, String detailDescription, long ownerPhoneNumber, String ownerCity,
 			String ownerStreet, int ownerHouseNumber) throws ErrorInProcessPetOwner, ErrorInProcessPetData {
 
 		// Get Pet using id
@@ -193,9 +193,8 @@ public class PetModel {
 		}
 	}
 
-	// Get pets by criteria
-	// TODO
-	public List<Pet> getPetsByCriteria(String petCategory, int petAge, int petSize, String petGender)
+	// Get pets by criterias
+	public List<Pet> getPetsByCriteria(String petCategory, int petAge, String petSize, String petGender)
 			throws ErrorInProcessPetData {
 		try {
 			return this.petAccess.getPetsByCriteria(petCategory, petAge, petSize, petGender);
