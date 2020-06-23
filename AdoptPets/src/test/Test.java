@@ -14,7 +14,7 @@ public class Test {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		// 1. Create User
+		 // 1. Create User
 		UserModel userModel = new UserModel();
 		try {
 			userModel.createNewUser("valeria", "Aa123456", "Valeria", "Yermaev", "valeria4791@gmail.com");

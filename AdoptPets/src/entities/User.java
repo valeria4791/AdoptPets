@@ -31,6 +31,10 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user")
 	private List<PetOwner> owners = new ArrayList<PetOwner>();
 
+	// one to many relationship - To pet love table
+	@OneToMany(mappedBy = "user")
+	private List<PetLove> petLove = new ArrayList<PetLove>();
+
 	public User() {
 		super();
 	}
@@ -85,5 +89,13 @@ public class User implements Serializable {
 
 	public void setOwners(List<PetOwner> owners) {
 		this.owners = owners;
+	}
+
+	public List<PetLove> getPetLove() {
+		return petLove;
+	}
+
+	public void setPetLove(List<PetLove> petLove) {
+		this.petLove = petLove;
 	}
 }

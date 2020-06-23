@@ -20,8 +20,8 @@ public class PetLove implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int petLoveId;
 
-	// one to one relationship - To user table
-	@OneToOne
+	// many to one relationship - To user table
+	@ManyToOne
 	private User user;
 
 	// one to many relationship - To pet table

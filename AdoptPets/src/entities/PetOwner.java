@@ -29,7 +29,7 @@ public class PetOwner implements Serializable {
 	private int houseNumber;
 
 	// one to one relationship - To pet table
-	@OneToOne
+	@OneToOne(mappedBy = "petOwner", optional = true)
 	private Pet pet;
 
 	public PetOwner() {

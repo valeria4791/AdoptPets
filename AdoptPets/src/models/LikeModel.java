@@ -30,36 +30,39 @@ public class LikeModel {
 			throws ErrorInProcessUser, ErrorInProcessPetData, ErrorInProcessPetLove {
 		try {
 
+			// Get user by user id
+			User user = this.userAccess.getUser(userId);
+
 			// Get pet by pet id
 			Pet pet = this.petAccess.getPet(petId);
 
-			// Get user likes by user id
-			PetLove petLike = this.lovePetAccess.getPetLoveByUserId(userId);
+//			// Get user likes by user id
+//			PetLove petLike = this.lovePetAccess.getPetLoveByUserId(userId);
+//
+//			// Check if data was found
+//			if (petLike != null) {
+//
+//				// Add new pet to list of likes
+//				petLike.getPets().add(pet);
+//				
+//
+//				// Now update all changes in DB
+//				this.lovePetAccess.update(petLike);
+//			} else {
 
-			// Check if data was found
-			if (petLike != null) {
+			// Create new object for user likes
+			PetLove petLike = new PetLove();
 
-				// Add new pet to list of likes
-				petLike.getPets().add(pet);
+			// Set data of this new like
+			petLike.setUser(user);
+			petLike.getPets().add(pet);
 
-				// Now update all changes in DB
-				this.lovePetAccess.update(petLike);
-			} else {
+			user.getPetLove().add(petLike);
 
-				// Get user by user id
-				User user = this.userAccess.getUser(userId);
-
-				// Create new object for user likes
-				petLike = new PetLove();
-
-				// Set data of this new like
-				petLike.setUser(user);
-				petLike.getPets().add(pet);
-
-				// Now update all changes in DB
-				this.lovePetAccess.create(petLike);
-				this.userAccess.update(user);
-			}
+			// Now update all changes in DB
+			this.lovePetAccess.create(petLike);
+			this.userAccess.update(user);
+//			}
 			return petLike;
 		} catch (ErrorInProcessPetLove ePetLove) {
 			throw ePetLove;
