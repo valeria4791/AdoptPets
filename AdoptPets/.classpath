@@ -27,5 +27,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Valeria/workspace/validation-api-2.0.1.Final.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

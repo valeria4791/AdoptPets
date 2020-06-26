@@ -2,8 +2,8 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
-
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * Entity implementation class for Entity: PetOwner
@@ -22,10 +22,20 @@ public class PetOwner implements Serializable {
 	// many to one relationship - To user table
 	@ManyToOne
 	private User user;
-
+	
+	@Column(name = "phone_number")
+    @Size(max = 15)
 	private long phoneNumber;
+	
+	@Column(name = "city")
+	@Size(max = 60)
 	private String city;
+	
+	@Column(name = "street")
+	@Size(max = 100)
 	private String street;
+	
+	@Column(name = "house_number")
 	private int houseNumber;
 
 	// one to one relationship - To pet table

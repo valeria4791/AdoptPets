@@ -3,6 +3,11 @@ package entities;
 import java.io.Serializable;
 import java.lang.String;
 import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import utilities.Category;
+import utilities.Gender;
+import utilities.PetSize;
 
 /**
  * Entity implementation class for Entity: Pet
@@ -21,13 +26,32 @@ public class Pet implements Serializable {
 	// one to one relationship - To pet owner table
 	@OneToOne
 	private PetOwner petOwner;
-
-	private String category;
+	
+	@Enumerated(EnumType.STRING)
+    @Column(length = 15)
+	private Category category;
+	
+	@Size(max = 65)
+	@Column(name = "pet_name")
 	private String petName;
+	
+	@Column(name = "pet_age")
 	private int petAge;
-	private String petSize;
-	private String gender;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "pet_size", length = 15)
+	private PetSize petSize;
+	
+	@Enumerated(EnumType.STRING)
+    @Column(length = 10)
+	private Gender gender;
+	
+	@Column(name = "short_desc")
+	@Size(max = 150)
 	private String shortDescription;
+	
+	@Column(name = "detail_desc")
+	@Size(max = 300)
 	private String detailDescription;
 
 	// TODO picture
@@ -48,11 +72,11 @@ public class Pet implements Serializable {
 		this.petOwner = petOwner;
 	}
 
-	public String getCategory() {
+	public Category getCategory() {
 		return this.category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
@@ -72,19 +96,19 @@ public class Pet implements Serializable {
 		this.petAge = petAge;
 	}
 
-	public String getPetSize() {
+	public PetSize getPetSize() {
 		return this.petSize;
 	}
 
-	public void setPetSize(String petSize) {
+	public void setPetSize(PetSize petSize) {
 		this.petSize = petSize;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return this.gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 

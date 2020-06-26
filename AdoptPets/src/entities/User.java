@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 /**
  * Entity implementation class for Entity: user
@@ -21,10 +21,29 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int userId;
+	
+	@NotNull
+	@Size(max = 100)
+	@Column(name = "user_name")
 	private String username;
+	
+	@NotNull
+	@Size(max = 128)
+	@Column(name = "password")
 	private String password;
+	
+	
+	@Size(max = 65)
+    @Column(name = "first_name")
 	private String firstName;
+	
+	@Size(max = 65)
+    @Column(name = "last_Name")
 	private String lastName;
+	
+	@Email
+	@Size(max = 100)
+    @Column(unique = true)
 	private String email;
 
 	// one to many relationship - To pet owner table
@@ -32,8 +51,8 @@ public class User implements Serializable {
 	private List<PetOwner> owners = new ArrayList<PetOwner>();
 
 	// one to many relationship - To pet love table
-	@OneToMany(mappedBy = "user")
-	private List<PetLove> petLove = new ArrayList<PetLove>();
+	@OneToOne(mappedBy = "user", optional = true)
+	private PetLove petLove;
 
 	public User() {
 		super();
@@ -91,11 +110,11 @@ public class User implements Serializable {
 		this.owners = owners;
 	}
 
-	public List<PetLove> getPetLove() {
+	public PetLove getPetLove() {
 		return petLove;
 	}
 
-	public void setPetLove(List<PetLove> petLove) {
+	public void setPetLove(PetLove petLove) {
 		this.petLove = petLove;
 	}
 }

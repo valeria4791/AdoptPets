@@ -8,6 +8,9 @@ import entities.User;
 import exception.ErrorInProcessPetData;
 import exception.ErrorInProcessPetOwner;
 import exception.ErrorInProcessUser;
+import utilities.Category;
+import utilities.Gender;
+import utilities.PetSize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ public class PetModel {
 	private UserDAO userAccess = new UserDAO();
 
 	// Create new pet with new owner
-	public Pet createNewPet(int userId, String petCategory, String petName, int petAge, String petSize, String petGender,
+	public Pet createNewPet(int userId, Category petCategory, String petName, int petAge, PetSize petSize, Gender petGender,
 			String shortDescription, String detailDescription,long ownerPhoneNumber, String ownerCity,
 			String ownerStreet, int ownerHouseNumber)
 			throws ErrorInProcessPetOwner, ErrorInProcessUser, ErrorInProcessPetData {
@@ -79,7 +82,7 @@ public class PetModel {
 	}
 
 	// Update exist pet and owner
-	public Pet updatePet(int petId, String petCategory, String petName, int petAge, String petSize, String petGender,
+	public Pet updatePet(int petId, Category petCategory, String petName, int petAge, PetSize petSize, Gender petGender,
 			String shortDescription, String detailDescription, long ownerPhoneNumber, String ownerCity,
 			String ownerStreet, int ownerHouseNumber) throws ErrorInProcessPetOwner, ErrorInProcessPetData {
 
@@ -194,7 +197,7 @@ public class PetModel {
 	}
 
 	// Get pets by criterias
-	public List<Pet> getPetsByCriteria(String petCategory, int petAge, String petSize, String petGender)
+	public List<Pet> getPetsByCriteria(Category petCategory, int petAge, PetSize petSize, Gender petGender)
 			throws ErrorInProcessPetData {
 		try {
 			return this.petAccess.getPetsByCriteria(petCategory, petAge, petSize, petGender);

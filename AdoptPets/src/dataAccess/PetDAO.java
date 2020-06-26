@@ -11,6 +11,9 @@ import javax.persistence.criteria.Root;
 import entities.Pet;
 import exception.ErrorInProcessPetData;
 import utilities.AccessToDb;
+import utilities.Category;
+import utilities.Gender;
+import utilities.PetSize;
 
 public class PetDAO {
 	public PetDAO() {
@@ -104,7 +107,7 @@ public class PetDAO {
 	}
 
 	// Get pets by criteria
-	public List<Pet> getPetsByCriteria(String petCategory, int petAge, String petSize, String petGender)
+	public List<Pet> getPetsByCriteria(Category petCategory, int petAge, PetSize petSize, Gender petGender)
 			throws ErrorInProcessPetData {
 		try {
 			// access to DB
@@ -119,7 +122,7 @@ public class PetDAO {
 			List<Predicate> predicates = new ArrayList<>();
 
 			// Category
-			if (petCategory != null && !petCategory.isEmpty())
+			if (petCategory != null)
 				predicates.add(cb.and(cb.equal(pet.get("category"), petCategory)));
 
 			// Pet Age
@@ -127,11 +130,11 @@ public class PetDAO {
 				predicates.add(cb.and(cb.equal(pet.get("petAge"), petAge)));
 
 			// Pet size
-			if (petSize != null && !petSize.isEmpty())
+			if (petSize != null)
 				predicates.add(cb.and(cb.equal(pet.get("petSize"), petSize)));
 
 			// Pet Gender
-			if (petGender != null && !petGender.isEmpty())
+			if (petGender != null)
 				predicates.add(cb.and(cb.equal(pet.get("gender"), petGender)));
 
 			// Set where

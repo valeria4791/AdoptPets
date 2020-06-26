@@ -11,8 +11,6 @@ import javax.persistence.*;
  *
  */
 @Entity
-@NamedQueries({
-		@NamedQuery(name = "LoveByUserId", query = "SELECT l FROM PetLove l JOIN l.user u WHERE u.userId = :userId") })
 public class PetLove implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +19,7 @@ public class PetLove implements Serializable {
 	private int petLoveId;
 
 	// many to one relationship - To user table
-	@ManyToOne
+	@OneToOne
 	private User user;
 
 	// one to many relationship - To pet table
