@@ -5,6 +5,8 @@ import java.lang.String;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.mysql.cj.jdbc.Blob;
+
 import utilities.Category;
 import utilities.Gender;
 import utilities.PetSize;
@@ -53,6 +55,10 @@ public class Pet implements Serializable {
 	@Column(name = "detail_desc")
 	@Size(max = 300)
 	private String detailDescription;
+	
+	@Lob
+	@Column(name = "image")
+	private byte[] petPhoto;
 
 	// TODO picture
 
@@ -128,4 +134,11 @@ public class Pet implements Serializable {
 		this.detailDescription = detailDescription;
 	}
 
+	public byte[] getPetPhoto() {
+		return petPhoto;
+	}
+
+	public void setPetPhoto(byte[] petPhoto) {
+		this.petPhoto = petPhoto;
+	}
 }

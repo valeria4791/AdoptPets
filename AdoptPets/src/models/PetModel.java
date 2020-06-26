@@ -15,6 +15,8 @@ import utilities.PetSize;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.jdbc.Blob;
+
 import dataAccess.PetDAO;
 import dataAccess.PetOwnerDAO;
 import dataAccess.UserDAO;
@@ -31,9 +33,9 @@ public class PetModel {
 	private UserDAO userAccess = new UserDAO();
 
 	// Create new pet with new owner
-	public Pet createNewPet(int userId, Category petCategory, String petName, int petAge, PetSize petSize, Gender petGender,
-			String shortDescription, String detailDescription,long ownerPhoneNumber, String ownerCity,
-			String ownerStreet, int ownerHouseNumber)
+	public Pet createNewPet(int userId, Category petCategory, String petName, int petAge, PetSize petSize,
+			Gender petGender, String shortDescription, String detailDescription, byte[] petPhoto, long ownerPhoneNumber,
+			String ownerCity, String ownerStreet, int ownerHouseNumber)
 			throws ErrorInProcessPetOwner, ErrorInProcessUser, ErrorInProcessPetData {
 
 		// Get user by user id
@@ -64,6 +66,7 @@ public class PetModel {
 		newPet.setGender(petGender);
 		newPet.setShortDescription(shortDescription);
 		newPet.setDetailDescription(detailDescription);
+		newPet.setPetPhoto(petPhoto);
 
 		// Now update all changes in DB
 		try {
@@ -83,7 +86,7 @@ public class PetModel {
 
 	// Update exist pet and owner
 	public Pet updatePet(int petId, Category petCategory, String petName, int petAge, PetSize petSize, Gender petGender,
-			String shortDescription, String detailDescription, long ownerPhoneNumber, String ownerCity,
+			String shortDescription, String detailDescription, byte[] petPhoto, long ownerPhoneNumber, String ownerCity,
 			String ownerStreet, int ownerHouseNumber) throws ErrorInProcessPetOwner, ErrorInProcessPetData {
 
 		// Get Pet using id
@@ -106,6 +109,7 @@ public class PetModel {
 		currentPet.setGender(petGender);
 		currentPet.setShortDescription(shortDescription);
 		currentPet.setDetailDescription(detailDescription);
+		currentPet.setPetPhoto(petPhoto);
 
 		// Now update all changes in DB
 		try {

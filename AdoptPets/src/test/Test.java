@@ -2,6 +2,8 @@ package test;
 
 import java.util.List;
 
+import com.mysql.cj.jdbc.Blob;
+
 import entities.Pet;
 import entities.PetOwner;
 import entities.User;
@@ -9,13 +11,13 @@ import models.LikeModel;
 import models.PetModel;
 import models.UserModel;
 import utilities.Category;
+import utilities.ConvertPhoto;
 import utilities.Gender;
 import utilities.PetSize;
 
 public class Test {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		// 1. Create User
 		UserModel userModel = new UserModel();
@@ -29,18 +31,32 @@ public class Test {
 		PetModel petModel = new PetModel();
 		try {
 
+			// URL photo
+			String urlPhoto = "C:\\Users\\Valeria\\OneDrive\\Pictures\\Study\\profile.jpg";
+			
+			byte[] bytePhoto = null;
+
+			try {
+				bytePhoto = ConvertPhoto.convertPhotoToDB(urlPhoto);
+			} catch (Exception e) {
+			}
+
 			// Get created user
 			User user = userModel.findUser("valeria", "Aa123456");
 
 			long number = Long.valueOf("0544458996");
 			petModel.createNewPet(user.getUserId(), Category.DOG, "Lucky", 5, PetSize.LARGE, Gender.MALE,
-					"הכלב הכי חמוד שיש", "הכלב הכי חמוד שיש.לא נושך ולא נובח", number, "תל אביב", "רודשילד", 16);
+					"הכלב הכי חמוד שיש", "הכלב הכי חמוד שיש.לא נושך ולא נובח", bytePhoto, number, "תל אביב", "רודשילד",
+					16);
 			petModel.createNewPet(user.getUserId(), Category.DOG, "Moana", 1, PetSize.SMALL, Gender.FEMALE,
-					"הכלבה הכי חמודה שיש", "הכלבה הכי חמודה שיש.לא נושכת ולא נובחת", number, "תל אביב", "רודשילד", 16);
+					"הכלבה הכי חמודה שיש", "הכלבה הכי חמודה שיש.לא נושכת ולא נובחת", bytePhoto, number, "תל אביב",
+					"רודשילד", 16);
 			petModel.createNewPet(user.getUserId(), Category.CAT, "Misty", 3, PetSize.XLARGE, Gender.MALE,
-					"החתול הכי חמוד שיש", "החתול הכי חמוד שיש.לא נושך ולא נובח", number, "תל אביב", "רודשילד", 16);
+					"החתול הכי חמוד שיש", "החתול הכי חמוד שיש.לא נושך ולא נובח", null, number, "תל אביב", "רודשילד",
+					16);
 			petModel.createNewPet(user.getUserId(), Category.CAT, "Chloe", 7, PetSize.SMALL, Gender.MALE,
-					"החתול הכי חמוד שיש", "החתול הכי חמוד שיש.לא נושך ולא נובח", number, "תל אביב", "רודשילד", 16);
+					"החתול הכי חמוד שיש", "החתול הכי חמוד שיש.לא נושך ולא נובח", null, number, "תל אביב", "רודשילד",
+					16);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
