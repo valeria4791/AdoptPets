@@ -34,8 +34,8 @@ public class PetModel {
 
 	// Create new pet with new owner
 	public Pet createNewPet(int userId, Category petCategory, String petName, int petAge, PetSize petSize,
-			Gender petGender, String shortDescription, String detailDescription, byte[] petPhoto, long ownerPhoneNumber,
-			String ownerCity, String ownerStreet, int ownerHouseNumber)
+			Gender petGender, String shortDescription, String detailDescription, byte[] petPhoto, String firstName,
+			String lastName, long ownerPhoneNumber, String ownerCity, String ownerStreet, int ownerHouseNumber)
 			throws ErrorInProcessPetOwner, ErrorInProcessUser, ErrorInProcessPetData {
 
 		// Get user by user id
@@ -46,6 +46,8 @@ public class PetModel {
 
 		// Set data of this pet owner
 		newPetOwner.setUser(user);
+		newPetOwner.setFirstName(firstName);
+		newPetOwner.setLastName(lastName);
 		newPetOwner.setPhoneNumber(ownerPhoneNumber);
 		newPetOwner.setCity(ownerCity);
 		newPetOwner.setStreet(ownerStreet);
@@ -86,8 +88,9 @@ public class PetModel {
 
 	// Update exist pet and owner
 	public Pet updatePet(int petId, Category petCategory, String petName, int petAge, PetSize petSize, Gender petGender,
-			String shortDescription, String detailDescription, byte[] petPhoto, long ownerPhoneNumber, String ownerCity,
-			String ownerStreet, int ownerHouseNumber) throws ErrorInProcessPetOwner, ErrorInProcessPetData {
+			String shortDescription, String detailDescription, byte[] petPhoto, String firstName, String lastName,
+			long ownerPhoneNumber, String ownerCity, String ownerStreet, int ownerHouseNumber)
+			throws ErrorInProcessPetOwner, ErrorInProcessPetData {
 
 		// Get Pet using id
 		Pet currentPet = this.petAccess.getPet(petId);
@@ -96,6 +99,8 @@ public class PetModel {
 		PetOwner petOwner = currentPet.getPetOwner();
 
 		// Set data of this pet owner
+		petOwner.setFirstName(firstName);
+		petOwner.setLastName(lastName);
 		petOwner.setPhoneNumber(ownerPhoneNumber);
 		petOwner.setCity(ownerCity);
 		petOwner.setStreet(ownerStreet);

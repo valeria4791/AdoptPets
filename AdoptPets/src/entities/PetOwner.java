@@ -22,19 +22,27 @@ public class PetOwner implements Serializable {
 	// many to one relationship - To user table
 	@ManyToOne
 	private User user;
-	
+
+	@Size(max = 65)
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Size(max = 65)
+	@Column(name = "last_Name")
+	private String lastName;
+
 	@Column(name = "phone_number")
-    @Size(max = 15)
+	@Size(max = 15)
 	private long phoneNumber;
-	
+
 	@Column(name = "city")
 	@Size(max = 60)
 	private String city;
-	
+
 	@Column(name = "street")
 	@Size(max = 100)
 	private String street;
-	
+
 	@Column(name = "house_number")
 	private int houseNumber;
 
@@ -44,6 +52,22 @@ public class PetOwner implements Serializable {
 
 	public PetOwner() {
 		super();
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public int getPetOwnerId() {
