@@ -14,36 +14,36 @@ import javax.validation.constraints.*;
 @Entity
 @NamedQueries({
 		@NamedQuery(name = "FindUser", query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password"),
-		@NamedQuery(name = "OwnersByUser", query = "SELECT o FROM User u JOIN u.owners o WHERE u.userId = :userId") })
+		@NamedQuery(name = "OwnersByUser", query = "SELECT o FROM User u JOIN u.owners o WHERE u.userId = :userId"),
+		@NamedQuery(name = "CheckUsername", query = "SELECT u FROM User u WHERE u.username = :username"), })
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int userId;
-	
+
 	@NotNull
 	@Size(max = 100)
 	@Column(name = "user_name")
 	private String username;
-	
+
 	@NotNull
 	@Size(max = 128)
 	@Column(name = "password")
 	private String password;
-	
-	
+
 	@Size(max = 65)
-    @Column(name = "first_name")
+	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Size(max = 65)
-    @Column(name = "last_Name")
+	@Column(name = "last_Name")
 	private String lastName;
-	
+
 	@Email
 	@Size(max = 100)
-    @Column(unique = true)
+	@Column(unique = true)
 	private String email;
 
 	// one to many relationship - To pet owner table

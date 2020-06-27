@@ -85,15 +85,32 @@ public class UserModel {
 			}
 		}
 	}
-
+	
+	// Find user for access application
 	public User findUser(String username, String password) throws ErrorInProcessUser {
-		
+
 		// Find user in DB
 		try {
 			this.currentUser = this.userAccess.findUserByData(username, password);
-			
+
 			// Set found user
 			return this.currentUser;
+		} catch (ErrorInProcessUser e) {
+			throw e;
+		}
+	}
+
+	// Check if username already exist
+	public boolean checkUsernameExists(String username) throws ErrorInProcessUser {
+
+		// Find user in DB
+		try {
+			User foundUser = this.userAccess.checkUserName(username);
+
+			if (foundUser != null)
+				return true;
+			else
+				return false;
 		} catch (ErrorInProcessUser e) {
 			throw e;
 		}

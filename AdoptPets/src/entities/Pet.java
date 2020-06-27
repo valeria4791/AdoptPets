@@ -60,8 +60,6 @@ public class Pet implements Serializable {
 	@Column(name = "image")
 	private byte[] petPhoto;
 
-	// TODO picture
-
 	public Pet() {
 		super();
 	}

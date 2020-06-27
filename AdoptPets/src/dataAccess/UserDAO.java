@@ -102,6 +102,25 @@ public class UserDAO {
 		}
 	}
 
+	// Get User by username - for checking if username already exists
+	public User checkUserName(String username) throws ErrorInProcessUser {
+
+		try {
+			// access to DB
+			EntityManager em = AccessToDb.createFactory();
+
+			// Select User by username
+			User selectedUser = em.createNamedQuery("CheckUsername", User.class).setParameter("username", username)
+					.getSingleResult();
+
+			return selectedUser;
+		} catch (Exception e) {
+			throw new ErrorInProcessUser("Error in process user data");
+		} finally {
+			AccessToDb.closeFactory();
+		}
+	}
+
 	// Get all pet owners of user
 	public List<PetOwner> getAllPetOwners(int idUser) throws ErrorInProcessUser {
 		try {
